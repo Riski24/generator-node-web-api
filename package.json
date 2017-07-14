@@ -1,0 +1,29 @@
+{
+  "name": "generator-node-web-api",
+  "version": "0.1.0",
+  "description": "Yeoman generator for Node Web API using ES2017 syntax",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ewrogers/generator-node-web-api.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "node",
+    "web",
+    "api",
+    "rest"
+  ],
+  "author": "Erik Rogers <erik.rogers@live.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ewrogers/generator-node-web-api/issues"
+  },
+  "homepage": "https://github.com/ewrogers/generator-node-web-api#readme"
+}
