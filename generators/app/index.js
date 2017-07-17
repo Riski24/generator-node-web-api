@@ -5,13 +5,23 @@ class AppGenerator extends Generator {
     super(args, options)
   }
 
-  method1() {
-    this.log('method 1 did execute')
+  initializing() {
+    this.composeWith(require.resolve('../framework'))
+    this.composeWith(require.resolve('../socket'))
   }
 
-  method2() {
-    this.log('method 2 did execute')
+  prompting() {
+    return this.prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of your project?',
+      default: this.appname
+    }])
+    .then((answers) => {
+      this.log('project name:', answers.name)
+    })
   }
+
 }
 
 module.exports = AppGenerator
