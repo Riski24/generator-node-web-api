@@ -3,7 +3,7 @@ import path from 'path'
 
 // Awilix imports
 import { createContainer, asValue, asFunction, asClass } from 'awilix'
-import { scopePerRequest } from 'awilix-express'
+import { scopePerRequest, inject } from 'awilix-express'
 
 // Express and middleware imports
 import bodyParser from 'body-parser'
@@ -19,6 +19,11 @@ import mongoose from 'mongoose'
 import Promise from 'bluebird'
 import moment from 'moment'
 import winston from 'winston'
+
+// Custom middleware
+import errorToJson from './middleware/errorToJson'
+import logRequest from './middleware/logRequest'
+import logError from './middleware/logError'
 
 // Utils
 import cleanTrace from './utils/cleanTrace'
@@ -94,16 +99,23 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-// Initialize API routes
+// Add custom middleware for logging requests, errors
+app.use(logRequest())
 
-// Log all non-HTTP errors
-app.use((err, req, res, next) => {
-  if (!err.status || err.status === 500) {
-    const stackTrace = cleanTrace(err.stack)
-    logger.error(stackTrace)
+// Initialize API routes
+app.use((req, res, next) => {
+  const createError = require('http-errors')
+  if (Math.Floor(Math.random() * 100) % 2 === 0) {
+    res.status(200).json({ message: 'Number was even.' })
+  } else {
+    const err = createError(403, 'Number was odd.')
+    next(err)
   }
-  next(err)
 })
+
+// Add error logging and handling middleware
+app.use(logError())
+app.use(errorToJson())
 
 // Log DB events
 db.on('connected', () => {
