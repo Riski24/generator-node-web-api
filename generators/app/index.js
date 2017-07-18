@@ -28,12 +28,20 @@ class AppGenerator extends Generator {
   }
 
   writing() {
+    // Copy files and folders
     this.fs.copy(
       this.templatePath('.'),
       this.destinationRoot(),
       { globOptions: { dot: true } }
     )
 
+    // Copy .env.example as .env
+    this.fs.copy(
+      this.templatePath('.env.example'),
+      this.destinationPath('.env')
+    )
+
+    // Copy package.json with templated values
     this.fs.copyTpl(
       this.templatePath('./package.json'),
       this.destinationPath('./package.json'), {
