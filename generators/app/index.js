@@ -19,6 +19,7 @@ class AppGenerator extends Generator {
 
   initializing() {
     this.composeWith(require.resolve('../framework'))
+    this.composeWith(require.resolve('../socket'))
     this.composeWith(require.resolve('../babel'))
     this.composeWith(require.resolve('../eslint'))
   }

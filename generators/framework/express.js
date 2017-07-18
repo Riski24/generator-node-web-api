@@ -3,6 +3,7 @@ const Generator = require('yeoman-generator')
 const EXPRESS_DEPENDENCIES = [
   'body-parser',
   'cookie-parser',
+  'cors',
   'express'
 ]
 
@@ -12,10 +13,6 @@ class ExpressGenerator extends Generator {
   }
 
   initializing() {
-
-  }
-
-  prompting() {
 
   }
 
