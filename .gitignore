@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# Yeoman .yo-rc.json file
+.yo-rc.json

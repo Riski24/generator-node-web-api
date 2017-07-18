@@ -6,7 +6,7 @@ class AppGenerator extends Generator {
   }
 
   initializing() {
-    
+    this.composeWith(require.resolve('../framework'))
   }
 
   prompting() {
