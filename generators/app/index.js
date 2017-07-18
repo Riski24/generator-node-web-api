@@ -2,6 +2,7 @@ const Generator = require('yeoman-generator')
 
 const APP_DEPENDENCIES = [
   'bluebird',
+  'dotenv',
   'lodash',
   'moment',
   'winston'
