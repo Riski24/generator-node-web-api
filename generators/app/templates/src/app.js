@@ -20,6 +20,16 @@ import Promise from 'bluebird'
 import moment from 'moment'
 import winston from 'winston'
 
+// API data models
+import todoSchema from './models/todo'
+
+// API stores
+import TodoStore from './stores/TodoStore'
+
+// API controllers
+
+// API routes
+
 // Custom middleware
 import errorToJson from './middleware/errorToJson'
 import logRequest from './middleware/logRequest'
@@ -75,11 +85,11 @@ const container = createContainer()
   })
   // Register models
   .register({
-
+    todoSchema: asValue(todoSchema)
   })
   // Register stores
   .register({
-
+    todoStore: asClass(TodoStore).scoped()
   })
   // Register controllers
   .register({
@@ -99,19 +109,10 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-// Add custom middleware for logging requests, errors
+// Add custom middleware for logging requests and errors
 app.use(logRequest())
 
 // Initialize API routes
-app.use((req, res, next) => {
-  const createError = require('http-errors')
-  if (Math.Floor(Math.random() * 100) % 2 === 0) {
-    res.status(200).json({ message: 'Number was even.' })
-  } else {
-    const err = createError(403, 'Number was odd.')
-    next(err)
-  }
-})
 
 // Add error logging and handling middleware
 app.use(logError())
