@@ -6,20 +6,28 @@ class AppGenerator extends Generator {
   }
 
   initializing() {
-    this.composeWith(require.resolve('../framework'))
-    this.composeWith(require.resolve('../socket'))
+    
   }
 
   prompting() {
     return this.prompt([{
       type: 'input',
       name: 'name',
-      message: 'What is the name of your project?',
+      message: 'What is the name of your app?',
       default: this.appname
     }])
     .then((answers) => {
-      this.log('project name:', answers.name)
+      this.log('appName:', answers.name)
+      this.config.set('appName', answers.name)
     })
+  }
+
+  writing() {
+    this.log('writing app templates')
+  }
+
+  install() {
+    this.log('installing app deps')
   }
 
 }
