@@ -14,8 +14,36 @@
   },
   "author": "<%= author %>",
   "license": "ISC",
-  "dependencies": [],
-  "peerDependencies": [],
-  "devDependencies": []
+  "dependencies": {
+    "awilix": "^2.6.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-paginate": "^0.2.2",
+    "http-errors": "^1.6.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.3",
+    "mongoose-paginate": "^5.0.3",
+    "rimraf": "^2.6.1",
+    "socket.io": "^2.0.3",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "nodemon": "^1.11.0"
+  }
 
 }

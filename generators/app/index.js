@@ -1,27 +1,8 @@
 const Generator = require('yeoman-generator')
 
-const APP_DEPENDENCIES = [
-  'bluebird',
-  'dotenv',
-  'lodash',
-  'moment'
-]
-
-const APP_DEV_DEPENDENCIES = [
-  'nodemon'
-]
-
 class AppGenerator extends Generator {
   constructor(args, options) {
     super(args, options)
-  }
-
-  initializing() {
-    this.composeWith(require.resolve('../framework'))
-    this.composeWith(require.resolve('../socket'))
-    this.composeWith(require.resolve('../database'))
-    this.composeWith(require.resolve('../babel'))
-    this.composeWith(require.resolve('../eslint'))
   }
 
   prompting() {
@@ -64,8 +45,10 @@ class AppGenerator extends Generator {
   }
 
   install() {
-    this.npmInstall(APP_DEPENDENCIES, { save: true })
-    this.npmInstall(APP_DEV_DEPENDENCIES, { 'save-dev': true })
+    this.installDependencies({
+      npm: true,
+      bower: false
+    })
   }
 
 }
