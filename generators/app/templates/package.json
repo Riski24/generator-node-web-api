@@ -1,0 +1,20 @@
+{
+  "name": "<%= name %>",
+  "version": "0.1.0",
+  "description": "<%= description %>",
+  "main": "src/index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "babel src -s -d dist",
+    "production": "npm run clean && npm run build && node bin/production",
+    "start": "node bin/dev",
+    "watch": "nodemon --ignore dist --exec npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "<%= author %>",
+  "license": "ISC",
+  "dependencies": [],
+  "peerDependencies": [],
+  "devDependencies": []
+
+}
