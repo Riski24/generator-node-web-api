@@ -2,7 +2,7 @@
   "name": "<%= name %>",
   "version": "0.1.0",
   "description": "<%= description %>",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "babel src -s -d dist",
