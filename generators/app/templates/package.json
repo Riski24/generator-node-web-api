@@ -9,6 +9,7 @@
     "production": "npm run clean && npm run build && node bin/production",
     "start": "node bin/dev",
     "watch": "nodemon --ignore dist --exec npm start",
+    "lint": "eslint --ext .js src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "<%= author %>",

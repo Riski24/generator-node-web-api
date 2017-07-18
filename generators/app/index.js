@@ -20,6 +20,7 @@ class AppGenerator extends Generator {
   initializing() {
     this.composeWith(require.resolve('../framework'))
     this.composeWith(require.resolve('../babel'))
+    this.composeWith(require.resolve('../eslint'))
   }
 
   prompting() {
@@ -38,6 +39,8 @@ class AppGenerator extends Generator {
       message: 'Enter your name:'
     }])
     .then((answers) => {
+      // Replace whitespace with a single dash in app name
+      answers.name = answers.name.replace(/\s+/g, '-')
       this.props = answers
     })
   }
