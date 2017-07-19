@@ -27,8 +27,10 @@ import todoSchema from './models/todo'
 import TodoStore from './stores/TodoStore'
 
 // API controllers
+import TodosController from './controllers/TodosController'
 
 // API routes
+import makeTodosRouter from './routes/todosRouter'
 
 // Custom middleware
 import errorToJson from './middleware/errorToJson'
@@ -93,11 +95,11 @@ const container = createContainer()
   })
   // Register controllers
   .register({
-
+    todosController: asClass(TodosController).scoped()
   })
   // Register routes
   .register({
-
+    todosRouter: asFunction(makeTodosRouter).singleton()
   })
 
 // Attach a scoped container to each request
@@ -113,6 +115,8 @@ app.use(cookieParser())
 app.use(logRequest())
 
 // Initialize API routes
+const { todosRouter } = container.cradle
+app.use('/api/todos', todosRouter)
 
 // Add error logging and handling middleware
 app.use(logError())
