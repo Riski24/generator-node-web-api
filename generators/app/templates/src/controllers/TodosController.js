@@ -7,7 +7,7 @@ export default class TodosController {
   }
 
   // Gets a list of all Todo items
-  list = async function find(req, res, next) {
+  list = async (req, res, next) => {
     try {
       const todos = await this.todoStore.find()
       res.json(todos)
@@ -15,7 +15,7 @@ export default class TodosController {
   }
 
   // Gets a single Todo item by ID
-  getById = async function getById(req, res, next) {
+  getById = async (req, res, next) => {
     try {
       const id = req.params.id
       const todo = await this.todoStore.findById(id)
@@ -30,7 +30,7 @@ export default class TodosController {
   }
 
   // Creates a new Todo item
-  create = async function create(req, res, next) {
+  create = async (req, res, next) => {
     try {
       const { title } = req.body
 
@@ -45,7 +45,7 @@ export default class TodosController {
   }
 
   // Updates an existing Todo item by ID
-  updateById = async function updateById(req, res, next) {
+  updateById = async (req, res, next) => {
     try {
       const id = req.params.id
       const todo = await this.todoStore.findById(id)
@@ -73,7 +73,7 @@ export default class TodosController {
   }
 
   // Removes an existing Todo item by ID
-  removeById = async function removeById(req, res, next) {
+  removeById = async (req, res, next) => {
     try {
       const id = req.params.id
       const todo = await this.todoStore.findById(id)
