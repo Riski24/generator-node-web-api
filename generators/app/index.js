@@ -35,9 +35,9 @@ class AppGenerator extends Generator {
       { globOptions: { dot: true } }
     )
 
-    // Copy .env.example as .env
+    // Copy .env.defaults as .env
     this.fs.copy(
-      this.templatePath('.env.example'),
+      this.templatePath('.env.defaults'),
       this.destinationPath('.env')
     )
 

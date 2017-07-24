@@ -3,9 +3,7 @@ import cleanTrace from '../utils/cleanTrace'
 const DEFAULT_STATUS_CODE = 500
 
 // This middleware will log each error
-export default () => function logError(err, req, res, next) {
-  const { logger } = req.container.cradle
-
+export default ({ logger }) => function logError(err, req, res, next) {
   if (!logger) {
     return
   }
