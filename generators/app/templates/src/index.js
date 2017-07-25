@@ -63,8 +63,10 @@ io.on('connect', (client) => {
 // TODO: Enable HTTPS with proper SSL cert/key support
 // const server = https.createServer({ key, cert }, app)
 
-// Create server and attach Socket.io
+// Create server
 const server = http.createServer(app)
+
+// Attach Socket.io to HTTP server
 io.attach(server)
 
 server.listen(app.get('port'), app.get('host'), () => {

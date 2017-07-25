@@ -40,7 +40,7 @@ export default function App({ container, logger, API_HOST, API_PORT, API_PREFIX,
 
   // Catch-all route, defaults to a 404
   app.use((req, res, next) => {
-    next(new createRequest.NotFound('Invalid API endpoint.'))
+    next(new createRequest.NotFound('Invalid API endpoint'))
   })
 
   // Add error logging and handling middleware

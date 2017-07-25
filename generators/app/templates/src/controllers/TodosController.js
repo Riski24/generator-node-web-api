@@ -17,7 +17,7 @@ export default class TodosController {
     try {
       const todo = await this.todoService.findById(req.params.id)
       if (!todo) {
-        return next(new createError.NotFound('Todo not found.'))
+        return next(new createError.NotFound('Todo not found'))
       }
 
       res.json(todo)
@@ -37,7 +37,7 @@ export default class TodosController {
     try {
       const todo = await this.todoService.findById(req.params.id)
       if (!todo) {
-        return next(new createError.NotFound('Todo not found.'))
+        return next(new createError.NotFound('Todo not found'))
       }
 
       const { title, isCompleted } = req.body
@@ -57,7 +57,7 @@ export default class TodosController {
     try {
       const todo = await this.todoService.findById(req.params.id)
       if (!todo) {
-        return next(new createError.NotFound('Todo not found.'))
+        return next(new createError.NotFound('Todo not found'))
       }
 
       await this.todoService.remove(todo)
