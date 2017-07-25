@@ -26,7 +26,6 @@ const container = createContainer()
     'models/**/*.js',
     'routes/**/*.js',
     'services/**/*.js',
-    'stores/**/*.js',
     ['app.js', Lifetime.SINGLETON],
     ['db.js', Lifetime.SINGLETON],
     ['io.js', Lifetime.SINGLETON],
