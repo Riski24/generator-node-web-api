@@ -8,13 +8,13 @@ export default function makeTodosRouter({ todosController }) {
   // If you want to ensure user authentication, uncomment import and the next line
   // router.use(ensureLoggedIn)
 
-  router.get('/api/todos', todosController.list)
-  router.get('/api/todos/:id', todosController.getById)
+  router.get('/todos', todosController.list)
+  router.get('/todos/:id', todosController.getById)
 
-  router.post('/api/todos', todosController.create)
-  router.put('/api/todos/:id', todosController.updateById)
+  router.post('/todos', todosController.create)
+  router.put('/todos/:id', todosController.updateById)
 
-  router.delete('/api/todos/:id', todosController.removeById)
+  router.delete('/todos/:id', todosController.removeById)
 
   return router
 }

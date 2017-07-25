@@ -11,7 +11,7 @@ import errorToJson from './middleware/errorToJson'
 import logRequest from './middleware/logRequest'
 import logError from './middleware/logError'
 
-export default function App({ container, logger, API_HOST, API_PORT, NODE_ENV }) {
+export default function App({ container, logger, API_HOST, API_PORT, API_PREFIX, NODE_ENV }) {
   const app = express()
 
   // Set app properties
@@ -31,11 +31,11 @@ export default function App({ container, logger, API_HOST, API_PORT, NODE_ENV })
   // Add custom middleware for logging requests and errors
   app.use(logRequest({ logger }))
 
-  // Add routes
+  // Add routes - will be prefixed with /api
   const apiRoutes = listModules(['routes/**/*.js'], { cwd: __dirname })
   for (const route of apiRoutes) {
     const router = container.resolve(route.name)
-    app.use(router)
+    app.use(API_PREFIX, router)
   }
 
   // Catch-all route, defaults to a 404
