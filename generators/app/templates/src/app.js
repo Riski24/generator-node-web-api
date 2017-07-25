@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
+import createRequest from 'http-errors'
 
 // Custom middleware
 import errorToJson from './middleware/errorToJson'
@@ -36,6 +37,11 @@ export default function App({ container, logger, API_HOST, API_PORT, NODE_ENV })
     const router = container.resolve(route.name)
     app.use(router)
   }
+
+  // Catch-all route, defaults to a 404
+  app.use((req, res, next) => {
+    next(new createRequest.NotFound('Invalid API endpoint.'))
+  })
 
   // Add error logging and handling middleware
   app.use(logError({ logger }))
