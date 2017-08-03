@@ -27,10 +27,8 @@ const container = createContainer()
     'routes/**/*.js',
     'services/**/*.js',
     ['app.js', Lifetime.SINGLETON],
-    ['db.js', Lifetime.SINGLETON],
-    <% if (includeSocketIo) { %>
-    ['io.js', Lifetime.SINGLETON],
-    <% } %>
+    ['db.js', Lifetime.SINGLETON],<% if (includeSocketIo) { %>
+    ['io.js', Lifetime.SINGLETON],<% } %>
     ['logger.js', Lifetime.SINGLETON],
   ], {
     cwd: __dirname,
@@ -56,9 +54,7 @@ db.on('connected', () => { logger.info(`Connected to database (${db.name}).`) })
 db.on('disconnected', () => { logger.warn(`Disconnected from database. (${db.name})`) })
 db.on('error', (err) => { logger.error('Database error:', err) })
 
-
-<% if (includeSocketIo) { %>
-const { io } = container.cradle
+<% if (includeSocketIo) { %>const { io } = container.cradle
 
 // Log on Socket.io events
 io.on('connect', (client) => {
@@ -72,12 +68,9 @@ io.on('connect', (client) => {
 })
 
 // Attach Socket.io to HTTP server
-io.attach(server)
-<% } %>
+io.attach(server)<% } %>
 
 server.listen(app.get('port'), app.get('host'), () => {
-  logger.info(`API server listening on port ${server.address().port}...`)
-  <% if (includeSocketIo) { %>
-  logger.info('Socket.io is enabled.')
-  <% } %>
+  logger.info(`API server listening on port ${server.address().port}...`)<% if (includeSocketIo) { %>
+  logger.info('Socket.io is enabled.')<% } %>
 })
