@@ -1,10 +1,10 @@
 
 export default class TodoService {
-  constructor({ db, todoSchema }) {
+  constructor(<% if (includeMongoDb) { %>{ db, todoSchema }<% } %>) {<% if (includeMongoDb) { %>
     this.todos = db.model('Todo', todoSchema)
-  }
+  <% } %>}
 
-  find = criteria => this.todos.find(criteria).exec()
+  <% if (includeMongoDb) { %>find = criteria => this.todos.find(criteria).exec()
 
   findById = id => this.todos.findById(id).exec()
 
@@ -14,5 +14,5 @@ export default class TodoService {
 
   remove = todo => todo.remove()
 
-  removeById = id => this.todos.removeById(id)
+  removeById = id => this.todos.removeById(id)<% } %>
 }

@@ -23,6 +23,10 @@ class AppGenerator extends Generator {
       type: 'confirm',
       name: 'includeSocketIo',
       message: 'Do you want to enable Socket.io support?'
+    }, {
+      type: 'confirm',
+      name: 'includeMongoDb',
+      message: 'Do you want to enable Mongoose for MongoDb?'
     }])
     .then((answers) => {
       // Replace whitespace with a single dash in app name
@@ -41,7 +45,9 @@ class AppGenerator extends Generator {
           ignore: [
             '**/auth.js',
             '**/io.js',
-            '**/index.js'
+            '**/index.js',
+            '**/models/todoSchema.js',
+            '**/services/TodoService.js'
           ]
         }
       }
@@ -51,7 +57,8 @@ class AppGenerator extends Generator {
     this.fs.copyTpl(
       this.templatePath('src/index.js'),
       this.destinationPath('src/index.js'), {
-        includeSocketIo: this.props.includeSocketIo
+        includeSocketIo: this.props.includeSocketIo,
+        includeMongoDb: this.props.includeMongoDb
       }
     )
 
@@ -63,6 +70,28 @@ class AppGenerator extends Generator {
         this.destinationPath('src/io.js')
       )
     }
+
+    // If MongoDb is being used, provide Mongoose and db files
+    if (this.props.includeMongoDb) {
+      // Copy db.js with template
+      this.fs.copy(
+        this.templatePath('src/db.js'),
+        this.destinationPath('src/db.js')
+      )
+      // Copy todoSchema.js with template
+      this.fs.copy(
+        this.templatePath('src/models/todoSchema.js'),
+        this.destinationPath('src/models/todoSchema.js')
+      )
+    }
+
+    // Copy TodoService.js with templated values
+    this.fs.copyTpl(
+      this.templatePath('src/services/TodoService.js'),
+      this.destinationPath('src/services/TodoService.js'), {
+        includeMongoDb: this.props.includeMongoDb
+      }
+    )
 
     // Copy .env.defaults as .env
     this.fs.copy(
@@ -77,7 +106,8 @@ class AppGenerator extends Generator {
         name: this.props.name,
         description: this.props.description,
         author: this.props.author,
-        includeSocketIo: this.props.includeSocketIo
+        includeSocketIo: this.props.includeSocketIo,
+        includeMongoDb: this.props.includeMongoDb
       }
     )
   }

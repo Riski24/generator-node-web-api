@@ -22,12 +22,12 @@ const container = createContainer()
   .registerValue({ ...env })
   // Autoload moduels
   .loadModules([
-    'controllers/**/*.js',
-    'models/**/*.js',
+    'controllers/**/*.js',<% if (includeMongoDb) { %>
+    'models/**/*.js',<% } %>
     'routes/**/*.js',
     'services/**/*.js',
-    ['app.js', Lifetime.SINGLETON],
-    ['db.js', Lifetime.SINGLETON],<% if (includeSocketIo) { %>
+    ['app.js', Lifetime.SINGLETON],<% if (includeMongoDb) { %>
+    ['db.js', Lifetime.SINGLETON],<% } %><% if (includeSocketIo) { %>
     ['io.js', Lifetime.SINGLETON],<% } %>
     ['logger.js', Lifetime.SINGLETON],
   ], {
@@ -42,17 +42,19 @@ const container = createContainer()
 container.registerValue({ container })
 
 // Resolve the components from the container
-const { app, db, logger } = container.cradle
+const { app, logger } = container.cradle
 
 // Create web server
 // TODO: Enable HTTPS with proper SSL cert/key support
 // const server = https.createServer({ key, cert }, app)
 const server = http.createServer(app)
 
+<% if (includeMongoDb) { %>const { db } = container.cradle
+
 // Log on DB events
 db.on('connected', () => { logger.info(`Connected to database (${db.name}).`) })
 db.on('disconnected', () => { logger.warn(`Disconnected from database. (${db.name})`) })
-db.on('error', (err) => { logger.error('Database error:', err) })
+db.on('error', (err) => { logger.error('Database error:', err) })<% } %>
 
 <% if (includeSocketIo) { %>const { io } = container.cradle
 
