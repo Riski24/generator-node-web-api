@@ -27,6 +27,10 @@ class AppGenerator extends Generator {
       type: 'confirm',
       name: 'includeMongoDb',
       message: 'Do you want to enable Mongoose for MongoDb?'
+    }, {
+      type: 'confirm',
+      name: 'serveStaticFiles',
+      message: 'Do you have static files to serve in /public folder?'
     }])
     .then((answers) => {
       // Replace whitespace with a single dash in app name
@@ -46,6 +50,7 @@ class AppGenerator extends Generator {
             '**/auth.js',
             '**/io.js',
             '**/index.js',
+            '**/app.js',
             '**/models/todoSchema.js',
             '**/services/TodoService.js'
           ]
@@ -90,6 +95,14 @@ class AppGenerator extends Generator {
       this.templatePath('src/services/TodoService.js'),
       this.destinationPath('src/services/TodoService.js'), {
         includeMongoDb: this.props.includeMongoDb
+      }
+    )
+
+    // Copy app.js with template
+    this.fs.copyTpl(
+      this.templatePath('src/app.js'),
+      this.destinationPath('src/app.js'), {
+        serveStaticFiles: this.props.serveStaticFiles
       }
     )
 

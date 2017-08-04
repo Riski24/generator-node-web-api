@@ -31,6 +31,9 @@ export default function App({ container, logger, API_HOST, API_PORT, API_PREFIX,
   // Add custom middleware for logging requests and errors
   app.use(logRequest({ logger }))
 
+  <% if (serveStaticFiles) { %>// Add static file serving
+  app.use(express.static(__dirname + '/public'))<% } %>
+
   // Add routes - will be prefixed with /api
   const apiRoutes = listModules(['routes/**/*.js'], { cwd: __dirname })
   for (const route of apiRoutes) {
